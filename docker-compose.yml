@@ -1,0 +1,21 @@
+version: '2'
+services:
+    postgres:
+        image: postgres:10.5
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+    wildfly:
+        image: jboss/wildfly-datasource
+        ports:
+            - "8080:8080"
+            - "9990:9990"
+        environment:
+            - DB_HOST=localhost
+            - DB_NAME=postgres
+            - DB_USER=postgres
+            - DB_PASS=postgres
+        depends_on:
+            - postgres
